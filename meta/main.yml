@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Dennis Vesterlund
+  description: Install and configure docker
+
+  issue_tracker_url: https://gitlab.com/Vestern/ansible-docker/-/issues
+
+  license: BSD-3-Clause
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
+        - bullseye
+
+  galaxy_tags:
+    - docker
+
+dependencies: []

@@ -1,0 +1,50 @@
+---
+
+- name: install docker prerequs
+  ansible.builtin.apt:
+    name: gnupg
+    state: present
+    update_cache: true
+
+- name: Create keys directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+  tags: repository
+
+- name: Add docker GPG key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+  tags: repository
+
+- name: Set architecture fact
+  block:
+    - name: amd64
+      ansible.builtin.set_fact:
+        docker_arch: amd64
+      when: ansible_architecture == "x86_64"
+  when: docker_arch is not defined
+  tags: repository
+
+
+- name: Add docker repository
+  ansible.builtin.apt_repository:
+    repo: deb [arch={{ docker_arch }}] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    state: present
+  tags: repository
+
+- name: Install docker
+  ansible.builtin.apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+    state: present
+
+- name: Install ansible docker prerequisites
+  ansible.builtin.apt:
+    pkg:
+      - python3-docker
+      - python3-requests
+    state: present
