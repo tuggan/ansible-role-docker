@@ -13,8 +13,9 @@
   tags: repository
 
 - name: Add docker GPG key
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.asc
   tags: repository
 
 - name: Set architecture fact
@@ -29,7 +30,7 @@
 
 - name: Add docker repository
   ansible.builtin.apt_repository:
-    repo: deb [arch={{ docker_arch }}] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    repo: deb [arch={{ docker_arch }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
     state: present
   tags: repository
 
