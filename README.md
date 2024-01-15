@@ -11,6 +11,9 @@ Uses the community.docker collection.
 Role Variables
 --------------
 
+| Varible | Required | Description |
+| ------- | -------- | ----------- |
+
 Example Playbook
 ----------------
 
