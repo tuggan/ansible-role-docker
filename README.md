@@ -19,7 +19,7 @@ Example Playbook
 
     - hosts: docker_hosts
       roles:
-        - vestern.docker
+        - tuggan.docker
 
 License
 -------
