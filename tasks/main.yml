@@ -1,6 +1,7 @@
 ---
 
-- include_tasks: "setup-{{ ansible_distribution | lower }}.yml"
+- name: Include distribution specific tasks
+  ansible.builtin.include_tasks: "setup-{{ ansible_distribution | lower }}.yml"
 
 # - name: Add ansible user to docker group
 #   ansible.builtin.user:
@@ -26,5 +27,3 @@
 #   portainer/agent:2.15.1
 
 # - name: Create portainer agent
-  
-
