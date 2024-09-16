@@ -1,5 +1,4 @@
 ---
-
 - name: Install docker prerequs
   ansible.builtin.apt:
     name: gnupg
@@ -29,25 +28,18 @@
         docker_arch: amd64
       when: ansible_architecture == "x86_64"
 
-
 - name: Add docker repository
   ansible.builtin.apt_repository:
     repo: deb [arch={{ docker_arch }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
     state: present
   tags: repository
 
-- name: Install docker
+- name: Update repository and install docker
   ansible.builtin.apt:
-    pkg:
+    name:
       - docker-ce
       - docker-ce-cli
       - containerd.io
       - docker-compose-plugin
     state: present
-
-- name: Install ansible docker prerequisites
-  ansible.builtin.apt:
-    pkg:
-      - python3-docker
-      - python3-requests
-    state: present
+    update_cache: true

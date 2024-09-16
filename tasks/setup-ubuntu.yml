@@ -43,9 +43,3 @@
       - docker-compose-plugin
     state: present
     update_cache: true
-# - name: Install ansible docker prerequisites
-#   ansible.builtin.apt:
-#     pkg:
-#       - python3-docker
-#       - python3-requests
-#     state: present
